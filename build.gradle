@@ -1,8 +1,16 @@
 apply plugin: 'java'
 apply plugin: 'maven'
+apply plugin: 'com.gradle.plugin-publish'
 
 group 'net.winterly.gradle'
-version '1.0.0'
+version '1.0.1'
+
+buildscript {
+    repositories.gradlePluginPortal()
+    dependencies {
+        classpath 'com.gradle.publish:plugin-publish-plugin:0.9.9'
+    }
+}
 
 repositories {
     mavenCentral()
@@ -12,5 +20,22 @@ dependencies {
     compile gradleApi()
 }
 
-sourceCompatibility = JavaVersion.VERSION_1_8
-targetCompatibility = JavaVersion.VERSION_1_8
+compileJava {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
+
+pluginBundle {
+    website = 'https://github.com/alex-shpak/dropwizard-gradle-plugin'
+    vcsUrl = 'https://github.com/alex-shpak/dropwizard-gradle-plugin'
+    description = 'Gradle plugin that creates dropwizard specific tasks'
+    tags = ['dropwizard', 'task']
+
+    plugins {
+        dropwizardPlugin {
+            id = 'net.winterly.gradle.dropwizard'
+            displayName = 'Dropwizard CLI Plugin'
+        }
+    }
+}
+

@@ -68,6 +68,7 @@ public class Dropwizard {
             return name;
         }
 
-        return name.substring(0, 1).toUpperCase().concat(name.substring(1));
+        String capitalized = name.substring(0, 1).toUpperCase().concat(name.substring(1));
+        return prefix.concat(capitalized);
     }
 }
