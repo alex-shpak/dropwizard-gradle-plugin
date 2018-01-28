@@ -3,7 +3,7 @@ apply plugin: 'maven'
 apply plugin: 'com.gradle.plugin-publish'
 
 group 'net.winterly.dropwizard'
-version '1.0.3'
+version '1.0.4'
 
 buildscript {
     repositories.gradlePluginPortal()
