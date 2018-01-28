@@ -1,5 +1,6 @@
-package net.winterly.gradle.dropwizard;
+package net.winterly.dropwizard;
 
+import groovy.lang.Closure;
 import org.gradle.api.Action;
 import org.gradle.api.Project;
 import org.gradle.api.Task;
@@ -49,6 +50,17 @@ public class Dropwizard {
      */
     public void command(String name, Action<? super DropwizardExec> configuration) {
         configuration.execute(command(name));
+    }
+
+    /**
+     * Same as {@link #command(String)} with configuration action
+     *
+     * @param name          task suffix
+     * @param configuration configuration closure
+     */
+    public void command(String name, Closure configuration) {
+        configuration.setDelegate(command(name));
+        configuration.call();
     }
 
     /**

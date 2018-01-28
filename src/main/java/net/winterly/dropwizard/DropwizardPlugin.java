@@ -1,4 +1,4 @@
-package net.winterly.gradle.dropwizard;
+package net.winterly.dropwizard;
 
 import org.gradle.api.NonNullApi;
 import org.gradle.api.Plugin;
