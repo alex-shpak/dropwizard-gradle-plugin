@@ -5,15 +5,11 @@ import org.gradle.api.plugins.ApplicationPluginConvention;
 import org.gradle.api.plugins.JavaPluginConvention;
 import org.gradle.api.tasks.JavaExec;
 
-import java.util.Optional;
-
 public class DropwizardExec extends JavaExec {
 
-    private final Dropwizard dropwizard;
+    private final Dropwizard dropwizard = getProject().getExtensions().getByType(Dropwizard.class);
 
     public DropwizardExec() {
-        dropwizard = getProject().getExtensions().getByType(Dropwizard.class);
-
         setGroup("dropwizard");
         dependsOn("classes");
 
@@ -22,17 +18,15 @@ public class DropwizardExec extends JavaExec {
     }
 
     private FileCollection getRuntimeClasspath() {
-        String name = Optional.ofNullable(dropwizard.getClasspath()).orElse("main");
-
         return getPlugin(JavaPluginConvention.class)
                 .getSourceSets()
-                .getByName(name)
+                .getByName(dropwizard.classpath)
                 .getRuntimeClasspath();
     }
 
     private String getMainClass() {
-        if (dropwizard.getMain() != null) {
-            return dropwizard.getMain();
+        if (dropwizard.main != null) {
+            return dropwizard.main;
         }
 
         ApplicationPluginConvention application = getPlugin(ApplicationPluginConvention.class);
